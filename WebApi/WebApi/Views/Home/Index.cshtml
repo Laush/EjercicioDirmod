@@ -1,0 +1,49 @@
+﻿<div class="jumbotron">
+    <h1 class="text-center">Cotizaciones</h1>
+    <div class="text-center">
+        <br><br><br>
+        <input class="btn btn-default btn-lg" type="button" id="dolar" value="DOLAR" onclick="findDolar();" />
+        <input class="btn btn-default btn-lg" type="button" id="real" value="REAL" onclick="findReal();" />
+        <input class="btn btn-default btn-lg" type="button" id="euro" value="EURO" onclick="findEuro();" />
+        <br><br><br>
+        <p class="lead" id="mon" />
+    </div>
+
+    <script>
+        var url = 'api/cotizacion';
+        function formatItem(item) {
+            return '1 ' + item.source + ' = $ ' + item.value +' ARS';
+        }
+
+        function findDolar() {
+            $.getJSON(url + '/dolar')
+                .done(function (data) {
+                    $('#mon').text(formatItem(data));
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    $('#mon').text('Error:' + err);
+                });
+        }
+        function findReal() {
+            $.getJSON(url + '/real')
+                .done(function (data) {
+                    $('#mon').text(formatItem(data));
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    $('#mon').text('Error:' + err);
+                });
+        }
+
+        function findEuro() {
+            $.getJSON(url + '/euro')
+                .done(function (data) {
+                    $('#mon').text(formatItem(data));
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    $('#mon').text('Error:' + err);
+                });
+
+        }
+    </script>
+</div>
+
